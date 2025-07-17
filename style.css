@@ -14,7 +14,13 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     text-align: center;
-    width: 300px;
+    width: 90%;
+    max-width: 350px;
+}
+
+#dashboard-screen h2 {
+    font-size: 1.1em;
+    word-break: break-all;
 }
 
 input {
@@ -42,4 +48,11 @@ button:hover {
 #login-message {
     color: red;
     margin-top: 10px;
+}
+
+#user-display {
+    display: block;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
