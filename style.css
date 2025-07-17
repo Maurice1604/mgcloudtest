@@ -46,13 +46,12 @@ button:hover {
 }
 
 #google-signin-btn {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #4285F4;
+    padding: 10px 20px;
+    background-color: #0077cc;
     color: white;
     border: none;
     border-radius: 4px;
-    font-size: 1em;
+    cursos: pointer;
 }
 
 #login-message {
