@@ -2,6 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, ... } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,6 +20,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+// Add Google provider
+const provider = new GoogleAuthProvider();
+
+// Reference your button
+const googleSignInBtn = document.getElementById('google-signin-btn');
 
 // DOM Elements
 const loginScreen = document.getElementById('login-screen');
@@ -79,6 +86,24 @@ signupBtn.addEventListener('click', () => {
     createUserWithEmailAndPassword(auth, email, password)
         .catch((error) => {
             loginMessage.textContent = "Sign up failed: " + error.message;
+        });
+});
+
+// Google sign-in
+googleSignInBtn.addEventListener('click', () => {
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            // User signed in successfully
+            const user = result.user;
+            console.log("Signed in as:", user.email);
+            // Firestore last login tracking (optional)
+            const userRef = doc(db, "users", user.uid);
+            const now = new Date().toLocaleString();
+            setDoc(userRef, { email: user.email, lastLogin: now }, { merge: true });
+        })
+        .catch((error) => {
+            console.error("Google sign-in error:", error);
+            loginMessage.textContent = "Google sign-in failed: " + error.message;
         });
 });
 
