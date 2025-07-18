@@ -39,6 +39,23 @@ const userDisplay = document.getElementById('user-display');
 const lastLoginDisplay = document.getElementById('last-login');
 const loginMessage = document.getElementById('login-message');
 
+const loadingIndicator = document.getElementById('loading-indicator');
+
+// loading screens
+function showLoading() {
+    loadingIndicator.style.display = 'block';
+    loginBtn.disabled = true;
+    signupBtn.disabled = true;
+    googleSignInBtn.disabled = true;
+}
+
+function hideLoading() {
+    loadingIndicator.style.display = 'none';
+    loginBtn.disabled = false;
+    signupBtn.disabled = false;
+    googleSignInBtn.disabled = false;
+}
+
 // Show/Hide screens
 function showDashboard(user) {
     loginScreen.style.display = 'none';
@@ -71,12 +88,14 @@ onAuthStateChanged(auth, async (user) => {
 
 // Login
 loginBtn.addEventListener('click', () => {
+    showLoading();
     const email = emailInput.value;
     const password = passwordInput.value;
     signInWithEmailAndPassword(auth, email, password)
         .catch((error) => {
             loginMessage.textContent = "Login failed: " + error.message;
-        });
+        })
+        .finally(hideLoading);
 });
 
 // Sign Up
@@ -91,20 +110,18 @@ signupBtn.addEventListener('click', () => {
 
 // Google sign-in
 googleSignInBtn.addEventListener('click', () => {
+    showLoading();
     signInWithPopup(auth, provider)
         .then((result) => {
-            // User signed in successfully
             const user = result.user;
-            console.log("Signed in as:", user.email);
-            // Firestore last login tracking (optional)
-            const userRef = doc(db, "users", user.uid);
             const now = new Date().toLocaleString();
-            setDoc(userRef, { email: user.email, lastLogin: now }, { merge: true });
+            const userRef = doc(db, "users", user.uid);
+            return setDoc(userRef, { email: user.email, lastLogin: now }, { merge: true });
         })
         .catch((error) => {
-            console.error("Google sign-in error:", error);
             loginMessage.textContent = "Google sign-in failed: " + error.message;
-        });
+        })
+        .finally(hideLoading);
 });
 
 // Logout

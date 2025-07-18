@@ -65,3 +65,9 @@ button:hover {
     overflow-wrap: break-word;
     max-width: 100%;
 }
+
+#loading-indicator {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
