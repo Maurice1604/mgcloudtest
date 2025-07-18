@@ -21,11 +21,28 @@
     </div>
 
     <!-- Dashboard Screen -->
-    <div id="dashboard-screen" style="display: none;">
+<div id="dashboard-screen" style="display: none;">
+    <header class="dashboard-header">
+        <h1>mgcloudtest Dashboard</h1>
+        <button id="logout-btn">Logout</button>
+    </header>
+
+    <main class="dashboard-main">
         <h2>Welcome, <span id="user-display"></span>!</h2>
         <p id="last-login"></p>
-        <button id="logout-btn">Logout</button>
-    </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card">Placeholder 1</div>
+            <div class="dashboard-card">Placeholder 2</div>
+            <div class="dashboard-card">Placeholder 3</div>
+            <div class="dashboard-card">Placeholder 4</div>
+        </div>
+    </main>
+
+    <footer class="dashboard-footer">
+        <p>© 2025 mgcloudtest.com</p>
+    </footer>
+</div>
     
     <!-- Loading spinner -->
     <div id="loading-indicator" style="display: none;">Loading...

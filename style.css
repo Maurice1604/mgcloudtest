@@ -71,3 +71,50 @@ button:hover {
     margin-top: 10px;
     color: #333;
 }
+/* Layout Structure */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #0077cc;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.dashboard-footer {
+    padding: 10px;
+    background-color: #f1f1f1;
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 30px;
+}
+
+/* Main dashboard area */
+.dashboard-main {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Dashboard grid layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Individual dashboard card */
+.dashboard-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}
