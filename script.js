@@ -35,10 +35,10 @@ const signupBtn = document.getElementById('signup-btn');
 const logoutBtn = document.getElementById('logout-btn');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
-const userDisplay = document.getElementById('user-display');
+//const userDisplay = document.getElementById('user-display');
 const lastLoginDisplay = document.getElementById('last-login');
 const loginMessage = document.getElementById('login-message');
-
+const welcomeMessage = document.getElementById('welcome-message');
 const loadingIndicator = document.getElementById('loading-indicator');
 
 // loading screens
@@ -60,7 +60,7 @@ function hideLoading() {
 function showDashboard(user) {
     loginScreen.style.display = 'none';
     dashboardScreen.style.display = 'block';
-    userDisplay.textContent = user.email;
+//    userDisplay.textContent = user.email;
 }
 
 function showLogin() {
@@ -72,6 +72,9 @@ function showLogin() {
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         showDashboard(user);
+		
+		welcomeMessage.textContent = `Welcome, ${user.email}!`;
+		
         const userRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(userRef);
         if (docSnap.exists()) {
@@ -123,6 +126,8 @@ googleSignInBtn.addEventListener('click', () => {
         })
         .finally(hideLoading);
 });
+
+
 
 // Logout
 logoutBtn.addEventListener('click', () => {
